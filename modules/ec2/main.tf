@@ -94,6 +94,13 @@ resource "aws_security_group" "ans-nod-sg" {
   }
 
   ingress {
+    from_port       = 8888
+    to_port         = 8888
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb-sg.id]
+  }
+
+  ingress {
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
