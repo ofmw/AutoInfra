@@ -244,6 +244,7 @@ resource "aws_instance" "ansible-server" {
               sudo amazon-linux-extras enable ansible2
               sudo yum clean metadata
               sudo yum install -y ansible
+              sudo yum install -y git
               EOF
 
   tags = {
