@@ -39,3 +39,4 @@
 bastion.sh
 keyscan.sh
 main.tf
+output.json
