@@ -34,3 +34,8 @@
 
 # Data file
 *.info
+
+#sh File for Remote Server
+bastion.sh
+keyscan.sh
+main.tf

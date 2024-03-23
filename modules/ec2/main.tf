@@ -248,7 +248,7 @@ resource "aws_instance" "ansible-server" {
               EOF
 
   tags = {
-    Name = "ansible-server"
+    Name = "${var.naming}-ansible-server"
   }
 }
 
@@ -279,7 +279,7 @@ resource "aws_instance" "ansible-nod" {
               EOF
 
   tags = {
-    Name = "ansible-nod-0${count.index + 1}"
+    Name = "${var.naming}-ansible-nod-0${count.index + 1}"
   }
 }
 
