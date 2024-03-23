@@ -232,6 +232,10 @@ output "ansible-nod-ips" {
   value = module.instance.ansible-nod-ips
 }
 
+output "srv-alb-dns" {
+  value = module.instance.srv-alb-dns
+}
+
 EOF
 
 #설정 파일 출력

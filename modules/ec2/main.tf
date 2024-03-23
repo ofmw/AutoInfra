@@ -161,6 +161,10 @@ output "srv-alb-name" {
   value = aws_lb.srv-alb.name
 }
 
+output "srv-alb-dns" {
+  value = aws_lb.srv-alb.dns_name
+}
+
 # LB Listener
 resource "aws_lb_listener" "srv-alb-http" {
   load_balancer_arn = aws_lb.srv-alb.arn
