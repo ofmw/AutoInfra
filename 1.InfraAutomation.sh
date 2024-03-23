@@ -21,7 +21,7 @@ read cloud
 if [ $cloud == "1" ];then
 	echo "=====가용리전목록====="
 	cat -n "regions.info"
-	echo "===================="
+	echo "====================="
 	read -p "번호를 입력해주세요: " region_choice
 	region=$(sed -n "${region_choice}p" "regions.info")
 	cat <<EOF > main.tf
@@ -47,6 +47,7 @@ fi
 
 #가용영역 설정
 aws ec2 describe-availability-zones --region $region --query "AvailabilityZones[].{ZoneName: ZoneName}" --output text  > azs.info
+echo ""
 echo "=====가용영역목록====="
 cat -n "azs.info"
 echo "===================="
@@ -101,6 +102,7 @@ ssh-keygen -t rsa -b 4096 -C "" -f "./.ssh/$keyName" -N ""
 aws ec2 describe-instance-type-offerings --location-type "availability-zone" --region us-east-1 --query "InstanceTypeOfferings[?starts_with(InstanceType, 't3')].[InstanceType]" --output text | sort | uniq > instance.info
 
 #BastionHost
+echo ""
 echo "BastionHost AMI 선택"
 echo "=============================="
 echo "1.AMZN2 2.Ubuntu-20.04 3.RHEL9"
@@ -119,6 +121,7 @@ aws ec2 describe-images \
 bAmi=$(sed -n "1p" "ami.info")
 
 #Ansible-Server
+echo ""
 echo "앤서블 서버 AMI 선택"
 echo "=============================="
 echo "1.AMZN2 2.Ubuntu-20.04 3.RHEL9"
@@ -135,7 +138,7 @@ aws ec2 describe-images \
 --region "$region" \
 --output text >> ami.info
 srvAmi=$(sed -n "2p" "ami.info")
-
+echo ""
 echo "앤서블 서버 사양 선택"
 echo "===================="
 cat -n "instance.info"
@@ -145,6 +148,7 @@ srvType=$(sed -n "${srvTypeSelect}p" "instance.info")
 read -p "앤서블 서버 볼륨 크기[최소:20,최대:30]: " srvVolume
 
 #Ansible-Node
+echo ""
 echo "앤서블 노드 AMI 선택"
 echo "=============================="
 echo "1.AMZN2 2.Ubuntu-20.04 3.RHEL9"
@@ -161,7 +165,7 @@ aws ec2 describe-images \
 --region "$region" \
 --output text >> ami.info
 nodAmi=$(sed -n "3p" "ami.info")
-
+echo ""
 echo "앤서블 노드 사양 선택"
 echo "===================="
 cat -n "instance.info"
@@ -237,15 +241,15 @@ echo "가용영역2: ${azs2}"
 echo "프로젝트명: ${prjt}"
 echo "VPC_대역: ${vpcCidr}"
 echo "아키텍처_티어: ${tier}"
-echo "SSH_OPEN_IP: ${myIp}"
-echo "BASTION_AMI: ${bAmi}"
-echo "ANS_SRV_AMI: ${srvAmi}"
-echo "ANS_SRV_Type: ${srvType}"
-echo "ANS_SRV_Storage: ${srvVolume}"
-echo "ANS_NOD_AMI: ${nodAmi}"
-echo "ANS_NOD_Type: ${nodType}"
-echo "ANS_NOD_Storage: ${nodVolume}"
-echo "ANS_NOD_COUNT: ${nodCount}"
+echo "SSH 접속 IP: ${myIp}"
+echo "BastionHost OS: ${bAmi}"
+echo "앤서블 서버 OS: ${srvAmi}"
+echo "앤서블 서버 사양: ${srvType}"
+echo "앤서블 서버 용량: ${srvVolume}"
+echo "앤서블 노드 OS: ${nodAmi}"
+echo "앤서블 노드 사양: ${nodType}"
+echo "앤서블 노드 용량: ${nodVolume}"
+echo "앤서블 노드 수량: ${nodCount}"
 echo "==========================="
 
 #내용 확인 선택문
