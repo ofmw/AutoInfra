@@ -63,13 +63,6 @@ resource "aws_security_group" "ans-srv-sg" {
     security_groups = [aws_security_group.alb-sg.id]
   }
 
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = [var.myIp]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
