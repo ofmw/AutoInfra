@@ -175,20 +175,22 @@ nodType=$(sed -n "${nodTypeSelect}p" "instance.info")
 read -p "앤서블 노드 볼륨 크기[최소:10,최대:30]: " nodVolume
 read -p "앤서블 노드 수량: " nodCount
 
-# Ansible용 파일 생성
+#Ansible inventory용 파일 생성
 if [ ${srvUser} == ${nodUser} ];then
     echo "[all:vars]
 ansible_user=${srvUser}
 ansible_ssh_private_key_file=/home/${srvUser}/.ssh/${prjt}-ec2
 
-[${srvUser}]
-localhost" > user.info
+[localhost]
+localhost
+
+[${srvUser}]" > user.info
 else
     echo "[${srvUser}:vars]
 ansible_user=${srvUser}
 ansible_ssh_private_key_file=/home/${srvUser}/.ssh/${prjt}-ec2
 
-[${srvUser}]
+[localhost]
 localhost
 
 [${nodUser}:vars]
