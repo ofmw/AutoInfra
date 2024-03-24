@@ -236,6 +236,7 @@ resource "aws_instance" "ansible-server" {
               sudo yum clean metadata
               sudo yum install -y ansible
               sudo yum install -y git
+              sudo yum install -y fonts-korean
               EOF
 
   tags = {
