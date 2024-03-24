@@ -190,7 +190,7 @@ else
 ansible_user=${srvUser}
 ansible_ssh_private_key_file=/home/${srvUser}/.ssh/${prjt}-ec2
 
-[localhost]
+[${srvUser}]
 localhost
 
 [${nodUser}:vars]
