@@ -75,7 +75,7 @@ resource "aws_internet_gateway" "def-igw" {
 resource "aws_route_table" "public-route-table" {
   vpc_id = aws_vpc.def-vpc.id
   tags = {
-    Name = "${var.naming}-public-route-table"
+    Name = "${var.naming}-pub-rtb"
   }
 }
 
@@ -83,7 +83,7 @@ resource "aws_route_table" "public-route-table" {
 resource "aws_route_table" "private-route-table" {
   vpc_id = aws_vpc.def-vpc.id
   tags = {
-    Name = "${var.naming}-private-route-table"
+    Name = "${var.naming}-pvt-rtb"
   }
 }
 
@@ -120,7 +120,7 @@ resource "aws_eip" "eip" {
     create_before_destroy = true
   }
   tags = {
-    Name = "${var.naming}-nat"
+    Name = "${var.naming}-ngw-eip-a"
   }
 }
 
@@ -129,7 +129,7 @@ resource "aws_nat_gateway" "nat-gateway" {
   allocation_id = aws_eip.eip.id
   subnet_id     = aws_subnet.pub-sub-a.id
   tags = {
-    Name = "${var.naming}-pvt-ngw-a"
+    Name = "${var.naming}-ngw-a"
   }
 }
 
